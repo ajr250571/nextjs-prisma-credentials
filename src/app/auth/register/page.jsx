@@ -31,8 +31,8 @@ function RegisterPage() {
   });
 
   return (
-    <div className="grid-cols-1 gap-12 mb-12 md:grid-cols-1 justify-center items-center m-4">
-      <form onSubmit={onSubmit}>
+    <div className="h-screen flex justify-center items-center">
+      <form onSubmit={onSubmit} className="w-2/3 md:w-1/3">
         <h1 className="text text-primary justify-center font-bold text-4xl flex items-center gap-2 mb-2">
           Register
         </h1>
@@ -50,9 +50,22 @@ function RegisterPage() {
         </div>
         {errors.username && (
           <div className="label">
-            <span className="btn btn-error btn-xs">
+            <div className="badge badge-warning gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                className="inline-block w-4 h-4 stroke-current"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                ></path>
+              </svg>
               {errors.username.message}
-            </span>
+            </div>
           </div>
         )}
 
@@ -69,7 +82,22 @@ function RegisterPage() {
         </div>
         {errors.email && (
           <div className="label">
-            <span className="btn btn-error btn-xs">{errors.email.message}</span>
+            <div className="badge badge-warning gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                className="inline-block w-4 h-4 stroke-current"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                ></path>
+              </svg>
+              {errors.email.message}
+            </div>
           </div>
         )}
 
@@ -86,9 +114,22 @@ function RegisterPage() {
         </div>
         {errors.password && (
           <div className="label">
-            <span className="btn btn-error btn-xs">
+            <div className="badge badge-warning gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                className="inline-block w-4 h-4 stroke-current"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                ></path>
+              </svg>
               {errors.password.message}
-            </span>
+            </div>
           </div>
         )}
 
@@ -108,9 +149,22 @@ function RegisterPage() {
         </div>
         {errors.confirmPassword && (
           <div className="label">
-            <span className="btn btn-error btn-xs">
+            <div className="badge badge-warning gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                className="inline-block w-4 h-4 stroke-current"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                ></path>
+              </svg>
               {errors.confirmPassword.message}
-            </span>
+            </div>
           </div>
         )}
 

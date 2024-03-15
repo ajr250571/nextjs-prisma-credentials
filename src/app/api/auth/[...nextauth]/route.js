@@ -3,9 +3,13 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@/libs/prisma";
 import bcrypt from "bcrypt";
 
-const authOptions = {
+export const authOptions = {
+  session: {
+    strategy: "jwt",
+  },
   providers: [
     CredentialsProvider({
+      type: "credentials",
       name: "Credentials",
       credentials: {
         email: { label: "Email", type: "text", placeholder: "Email" },
@@ -40,6 +44,7 @@ const authOptions = {
   pages: {
     signIn: "/auth/login",
   },
+  // secret: "5/IFQsBlMyvdiZ+BSIOZb8YEWN73FtvbXRfDep10gyk=",
 };
 
 const handler = NextAuth(authOptions);
