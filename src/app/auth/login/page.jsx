@@ -15,7 +15,7 @@ function LoginPage() {
   const [error, setError] = useState(null);
 
   const onSubmit = handleSubmit(async (data) => {
-    // console.log(data);
+    //console.log(data);
     const res = await signIn("credentials", {
       email: data.email,
       password: data.password,
@@ -31,7 +31,7 @@ function LoginPage() {
   });
 
   return (
-    <div className="h-screen flex justify-center items-center">
+    <div className="h-[calc(100vh-10rem)] flex justify-center items-center">
       <form onSubmit={onSubmit} className="w-2/3 md:w-1/3">
         <h1 className="text text-primary justify-center font-bold text-4xl flex items-center gap-2 mb-2">
           Login

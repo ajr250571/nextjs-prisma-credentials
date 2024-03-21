@@ -15,6 +15,7 @@ function RegisterPage() {
     if (data.password !== data.confirmPassword) {
       return alert("Password no esta confirmado correctamente.");
     }
+    //console.log(data);
     const res = await fetch("/api/auth/register", {
       method: "POST",
       body: JSON.stringify({
@@ -24,6 +25,8 @@ function RegisterPage() {
       }),
       headers: { "Content-Type": "application/json" },
     });
+    //const resJson = await res.json();
+    //console.log(resJson);
     if (res.ok) {
       router.push("/auth/login");
     }
@@ -31,7 +34,7 @@ function RegisterPage() {
   });
 
   return (
-    <div className="h-screen flex justify-center items-center">
+    <div className="h-[calc(100vh-10rem)] flex justify-center items-center">
       <form onSubmit={onSubmit} className="w-2/3 md:w-1/3">
         <h1 className="text text-primary justify-center font-bold text-4xl flex items-center gap-2 mb-2">
           Register
