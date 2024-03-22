@@ -174,7 +174,12 @@ function ElitexPage() {
       } else {
         real1 = 0;
       }
-      setRend1(((real1 / teor1) * 100).toFixed(1));
+      const mRend1 = ((real1 / teor1) * 100).toFixed(1);
+      if (mRend1 > 999) {
+        setRend1(999);
+      } else {
+        setRend1(mRend1);
+      }
     }
     if (lecAct2 && lecAnt2 && rpm && hrs2 && fecha && fila && telar) {
       const teor2 = (parseInt(rpm) * 60 * parseInt(hrs2)) / 100;
@@ -188,7 +193,12 @@ function ElitexPage() {
       } else {
         real2 = 0;
       }
-      setRend2(((real2 / teor2) * 100).toFixed(1));
+      const mRend2 = ((real2 / teor2) * 100).toFixed(1);
+      if (mRend2 > 999) {
+        setRend2(999);
+      } else {
+        setRend2(mRend2);
+      }
     }
     if (lecAct3 && lecAnt3 && rpm && hrs3 && fecha && fila && telar) {
       const teor3 = (parseInt(rpm) * 60 * parseInt(hrs3)) / 100;
@@ -202,7 +212,12 @@ function ElitexPage() {
       } else {
         real3 = 0;
       }
-      setRend3(((real3 / teor3) * 100).toFixed(1));
+      const mRend3 = ((real3 / teor3) * 100).toFixed(1);
+      if (mRend3 > 999) {
+        setRend3(999);
+      } else {
+        setRend3(mRend3);
+      }
     }
     if (
       parseInt(rend1) > 110 ||
@@ -245,16 +260,16 @@ function ElitexPage() {
       // alert("El Rend. no puede ser mayor a 110%.");
       lOk = false;
     }
-    if (!lecAct1 || !lecAct2 || !lecAct3) {
-      // alert("Debe ingresar las 3 lecturas.");
+    if ((hrs1 && !lecAct1) || (hrs2 && !lecAct2) || (hrs3 && !lecAct3)) {
+      setError("Debe ingresar todas las Lecturas.");
       lOk = false;
     }
 
     if (lOk) {
-      await fetch("/api/postLectura", {
-        method: "POST",
-        body: JSON.stringify([
-          {
+      if (hrs1) {
+        await fetch("/api/postLectura", {
+          method: "POST",
+          body: JSON.stringify({
             fecha: new Date(fecha),
             turno: 1,
             fila: parseInt(fila),
@@ -265,8 +280,14 @@ function ElitexPage() {
             rpm: rpm,
             rend: parseFloat(rend1).toFixed(1),
             reloj: 1,
-          },
-          {
+          }),
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+      if (hrs2) {
+        await fetch("/api/postLectura", {
+          method: "POST",
+          body: JSON.stringify({
             fecha: new Date(fecha),
             turno: 2,
             fila: parseInt(fila),
@@ -277,8 +298,14 @@ function ElitexPage() {
             rpm: rpm,
             rend: parseFloat(rend2).toFixed(1),
             reloj: 2,
-          },
-          {
+          }),
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+      if (hrs3) {
+        await fetch("/api/postLectura", {
+          method: "POST",
+          body: JSON.stringify({
             fecha: new Date(fecha),
             turno: 3,
             fila: parseInt(fila),
@@ -289,10 +316,10 @@ function ElitexPage() {
             rpm: rpm,
             rend: parseFloat(rend3).toFixed(1),
             reloj: 3,
-          },
-        ]),
-        headers: { "Content-Type": "application/json" },
-      });
+          }),
+          headers: { "Content-Type": "application/json" },
+        });
+      }
       if (telar % 2 === 0) {
         // Es par
         var telAnt = telar;
@@ -331,15 +358,15 @@ function ElitexPage() {
     <div>
       <div className="flex justify-center items-center">
         <form onSubmit={onSubmit} className="w-full">
-          <h1 className="text text-primary justify-center font-bold text-4xl flex items-center gap-2 mb-2">
-            Rend. Elitex
+          <h1 className="text text-primary w-full bg-base-300 p-2 border-y-2 justify-center font-bold text-4xl flex items-center gap-2 mb-2">
+            Elitex
           </h1>
-          <div className="flex flex-row m-2">
+          <div className="flex flex-row mb-2">
             <div className="w-1/4">
               <label className="label-text text-sm">Fila</label>
               <input
-                type="text"
-                className="input input-bordered block w-full p-2.5 input-sm"
+                type="number"
+                className="input entrada"
                 placeholder="1 al 7"
                 value={fila}
                 onChange={(e) => {
@@ -352,8 +379,8 @@ function ElitexPage() {
             <div className="w-1/4">
               <label className="label-text text-sm">Telar</label>
               <input
-                type="text"
-                className="input input-bordered block w-full p-2.5 input-sm "
+                type="number"
+                className="input entrada"
                 placeholder="1 al 22"
                 value={telar}
                 onChange={(e) => {
@@ -367,7 +394,7 @@ function ElitexPage() {
               <label className="label-text text-sm">Fecha</label>
               <input
                 type="date"
-                className="input input-bordered block w-full p-2.5 input-sm "
+                className="input entrada"
                 placeholder="Fecha"
                 value={fecha}
                 onChange={(e) => {
@@ -377,140 +404,140 @@ function ElitexPage() {
               />
             </div>
           </div>
-          <div className="container grid m-2">
-            <div className="flex flex-row gap-1">
+          <div className="container grid my-1">
+            <div className="flex flex-row gap-1 mb-1">
               <div className="w-1/12">
-                <label className="text-center py-2">R</label>
-              </div>
-              <div className="w-1/12">
-                <label className="text-center py-2">Hrs</label>
-              </div>
-              <div className="w-3/12">
-                <label className="text-center py-2">Ant</label>
-              </div>
-              <div className="w-3/12">
-                <label className="text-center py-2">Act</label>
-              </div>
-              <div className="w-3/12">
-                <label className="text-center py-2">Rend</label>
+                <label className="text-center p-1">R</label>
               </div>
               <div className="w-1/12">
-                <label className="text-center py-2">I</label>
+                <label className="text-center p-1">Hrs</label>
+              </div>
+              <div className="w-3/12">
+                <label className="text-center p-1">Ant</label>
+              </div>
+              <div className="w-3/12">
+                <label className="text-center p-1">Act</label>
+              </div>
+              <div className="w-3/12">
+                <label className="text-center p-1">Rend</label>
+              </div>
+              <div className="w-1/12">
+                <label className="text-center p-1">I</label>
               </div>
             </div>
-            <div className="flex flex-row  gap-1">
+            <div className="flex flex-row gap-1 mb-2 items-center">
               <div className="w-1/12">
-                <label className="text-center py-2 text-sm">1</label>
+                <label className="text-center p-1 texto">1</label>
               </div>
               <div className="w-1/12">
                 <input
-                  type="text"
-                  className="input input-bordered block w-full p-2.5 input-sm"
+                  type="number"
+                  className="input entrada"
                   value={hrs1}
                   onChange={(e) => setHrs1(e.target.value)}
                 />
               </div>
               <div className="w-3/12">
-                <label className="text-center align-middle py-2 text-sm">
+                <label className="text-center align-middle p-1 texto">
                   {lecAnt1}
                 </label>
               </div>
               <div className="w-3/12">
                 <input
-                  type="text"
-                  className="input input-bordered block w-full p-2.5 input-sm"
+                  type="number"
+                  className="input entrada"
                   value={lecAct1}
                   onChange={(e) => setLecAct1(e.target.value)}
                 />
               </div>
-              <div className="w-3/12">
-                <label className="text-center py-2 text-sm">{rend1}</label>
+              <div className="w-2/12">
+                <label className="text-center p-1 texto">{rend1}</label>
               </div>
               <div className="w-1/12">
                 <input
                   type="text"
-                  className="input input-bordered block w-full p-2.5 input-sm"
+                  className="input entrada"
                   value={ini1}
                   onChange={(e) => setIni1(e.target.value)}
                 />
               </div>
             </div>
-            <div className="flex flex-row  gap-1">
+            <div className="flex flex-row  gap-1 mb-2  items-center">
               <div className="w-1/12">
-                <label className="text-center py-2 text-sm">2</label>
+                <label className="text-center p-1 texto">2</label>
               </div>
               <div className="w-1/12">
                 <input
-                  type="text"
-                  className="input input-bordered block w-full p-2.5 input-sm"
+                  type="number"
+                  className="input entrada"
                   value={hrs2}
                   onChange={(e) => setHrs2(e.target.value)}
                 />
               </div>
               <div className="w-3/12">
-                <label className="text-center align-middle py-2 text-sm">
+                <label className="text-center align-middle p-1 texto">
                   {lecAnt2}
                 </label>
               </div>
               <div className="w-3/12">
                 <input
-                  type="text"
-                  className="input input-bordered block w-full p-2.5 input-sm"
+                  type="number"
+                  className="input entrada"
                   value={lecAct2}
                   onChange={(e) => setLecAct2(e.target.value)}
                 />
               </div>
-              <div className="w-3/12">
-                <label className="text-center py-2 text-sm">{rend2}</label>
+              <div className="w-2/12">
+                <label className="text-center p-1 texto">{rend2}</label>
               </div>
               <div className="w-1/12">
                 <input
                   type="text"
-                  className="input input-bordered block w-full p-2.5 input-sm"
+                  className="input entrada"
                   value={ini2}
                   onChange={(e) => setIni2(e.target.value)}
                 />
               </div>
             </div>
-            <div className="flex flex-row  gap-1">
+            <div className="flex flex-row  gap-1 mb-2  items-center">
               <div className="w-1/12">
-                <label className="text-center py-2 text-sm">3</label>
+                <label className="text-center p-1 texto">3</label>
               </div>
               <div className="w-1/12">
                 <input
-                  type="text"
-                  className="input input-bordered block w-full p-2.5 input-sm"
+                  type="number"
+                  className="input entrada"
                   value={hrs3}
                   onChange={(e) => setHrs3(e.target.value)}
                 />
               </div>
               <div className="w-3/12">
-                <label className="text-center align-middle py-2 text-sm">
+                <label className="text-center align-middle p-1 texto">
                   {lecAnt3}
                 </label>
               </div>
               <div className="w-3/12">
                 <input
-                  type="text"
-                  className="input input-bordered block w-full p-2.5 input-sm"
+                  type="number"
+                  className="input entrada"
                   value={lecAct3}
                   onChange={(e) => setLecAct3(e.target.value)}
                 />
               </div>
-              <div className="w-3/12">
-                <label className="text-center py-2 text-sm">{rend3}</label>
+              <div className="w-2/12">
+                <label className="text-center p-1 texto">{rend3}</label>
               </div>
               <div className="w-1/12">
                 <input
                   type="text"
-                  className="input input-bordered block w-full p-2.5 input-sm"
+                  className="input entrada"
                   value={ini3}
                   onChange={(e) => setIni3(e.target.value)}
                 />
               </div>
             </div>
           </div>
-          <button className="btn btn-primary" type="submit">
+          <button className="btn btn-primary mt-2 w-full" type="submit">
             Grabar
           </button>
           {<p className="mt-2 text-error font-bold">{error}</p>}

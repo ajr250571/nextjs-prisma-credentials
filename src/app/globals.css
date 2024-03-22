@@ -2,3 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+.rend {
+    @apply font-bold;  
+    @apply text-secondary;
+    @apply text-2xl;
+}
+
+.texto {
+    @apply justify-center;
+    @apply font-bold;  
+    @apply text-secondary;
+    @apply text-2xl;
+}
+
+.entrada {
+    @apply block;
+    @apply input-bordered;
+    @apply w-full;
+    @apply p-1;
+    @apply input-md;
+}
