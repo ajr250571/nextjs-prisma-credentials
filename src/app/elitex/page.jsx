@@ -344,31 +344,32 @@ function ElitexPage() {
       setLecAct2("");
       setLecAct3("");
 
+      setIni1("");
+      setIni2("");
+      setIni3("");
+
       setFetchRPM("1");
       setFetchLectura("1");
-
-      // router.push("/elitex");
-      //const resJson = await res.json();
-      //console.log(resJson);
-    } else {
-      // alert("Rendimiento incorrecto.");
     }
   };
   return (
     <div>
-      <div className="flex justify-center items-center">
+      <div className="flex items-center justify-center">
         <form onSubmit={onSubmit} className="w-full">
-          <h1 className="text text-primary w-full bg-base-300 p-2 border-y-2 justify-center font-bold text-4xl flex items-center gap-2 mb-2">
+          <h1 className="flex items-center justify-center w-full gap-2 p-1 mb-1 text-2xl font-bold text text-primary bg-base-300 border-y-2">
             Elitex
           </h1>
-          <div className="flex flex-row mb-2">
+          {/* Fila, Telar y Fecha */}
+          <div className="flex flex-row mb-1">
             <div className="w-1/4">
-              <label className="label-text text-sm">Fila</label>
+              <label className="text-sm label-text">Fila</label>
               <input
                 type="number"
                 className="input entrada"
                 placeholder="1 al 7"
                 value={fila}
+                min="1"
+                max="6"
                 onChange={(e) => {
                   setFetchRPM("1");
                   setFetchLectura("1");
@@ -377,12 +378,14 @@ function ElitexPage() {
               />
             </div>
             <div className="w-1/4">
-              <label className="label-text text-sm">Telar</label>
+              <label className="text-sm label-text">Telar</label>
               <input
                 type="number"
                 className="input entrada"
                 placeholder="1 al 22"
                 value={telar}
+                min="1"
+                max="22"
                 onChange={(e) => {
                   setFetchRPM("1");
                   setFetchLectura("1");
@@ -391,7 +394,7 @@ function ElitexPage() {
               />
             </div>
             <div className="w-2/4">
-              <label className="label-text text-sm">Fecha</label>
+              <label className="text-sm label-text">Fecha</label>
               <input
                 type="date"
                 className="input entrada"
@@ -405,29 +408,32 @@ function ElitexPage() {
             </div>
           </div>
           <div className="container grid my-1">
+            {/* Titulos */}
             <div className="flex flex-row gap-1 mb-1">
               <div className="w-1/12">
-                <label className="text-center p-1">R</label>
+                <label className="p-1 text-center">R</label>
               </div>
               <div className="w-1/12">
-                <label className="text-center p-1">Hrs</label>
+                <label className="p-1 text-center">Hrs</label>
               </div>
               <div className="w-3/12">
-                <label className="text-center p-1">Ant</label>
+                <label className="p-1 text-center">Ant</label>
               </div>
               <div className="w-3/12">
-                <label className="text-center p-1">Act</label>
+                <label className="p-1 text-center">Act</label>
               </div>
-              <div className="w-3/12">
-                <label className="text-center p-1">Rend</label>
+              <div className="w-2/12">
+                <label className="p-1 text-center">Rend</label>
               </div>
-              <div className="w-1/12">
-                <label className="text-center p-1">I</label>
+              <div className="w-2/12">
+                <label className="p-1 text-center">I</label>
               </div>
             </div>
-            <div className="flex flex-row gap-1 mb-2 items-center">
+
+            {/* Reloj 1 */}
+            <div className="flex flex-row items-center gap-1 mb-2">
               <div className="w-1/12">
-                <label className="text-center p-1 texto">1</label>
+                <label className="p-1 text-center texto">1</label>
               </div>
               <div className="w-1/12">
                 <input
@@ -438,7 +444,7 @@ function ElitexPage() {
                 />
               </div>
               <div className="w-3/12">
-                <label className="text-center align-middle p-1 texto">
+                <label className="p-1 text-center align-middle texto">
                   {lecAnt1}
                 </label>
               </div>
@@ -451,20 +457,23 @@ function ElitexPage() {
                 />
               </div>
               <div className="w-2/12">
-                <label className="text-center p-1 texto">{rend1}</label>
+                <label className="p-1 text-center texto">{rend1}</label>
               </div>
-              <div className="w-1/12">
+              <div className="w-2/12">
                 <input
                   type="text"
                   className="input entrada"
                   value={ini1}
+                  maxLength="1"
                   onChange={(e) => setIni1(e.target.value)}
                 />
               </div>
             </div>
-            <div className="flex flex-row  gap-1 mb-2  items-center">
+
+            {/* Reloj 2 */}
+            <div className="flex flex-row items-center gap-1 mb-2">
               <div className="w-1/12">
-                <label className="text-center p-1 texto">2</label>
+                <label className="p-1 text-center texto">2</label>
               </div>
               <div className="w-1/12">
                 <input
@@ -475,7 +484,7 @@ function ElitexPage() {
                 />
               </div>
               <div className="w-3/12">
-                <label className="text-center align-middle p-1 texto">
+                <label className="p-1 text-center align-middle texto">
                   {lecAnt2}
                 </label>
               </div>
@@ -488,20 +497,23 @@ function ElitexPage() {
                 />
               </div>
               <div className="w-2/12">
-                <label className="text-center p-1 texto">{rend2}</label>
+                <label className="p-1 text-center texto">{rend2}</label>
               </div>
-              <div className="w-1/12">
+              <div className="w-2/12">
                 <input
                   type="text"
                   className="input entrada"
                   value={ini2}
+                  maxLength="1"
                   onChange={(e) => setIni2(e.target.value)}
                 />
               </div>
             </div>
-            <div className="flex flex-row  gap-1 mb-2  items-center">
+
+            {/* Reloj 3 */}
+            <div className="flex flex-row items-center gap-1 mb-2">
               <div className="w-1/12">
-                <label className="text-center p-1 texto">3</label>
+                <label className="p-1 text-center texto">3</label>
               </div>
               <div className="w-1/12">
                 <input
@@ -512,7 +524,7 @@ function ElitexPage() {
                 />
               </div>
               <div className="w-3/12">
-                <label className="text-center align-middle p-1 texto">
+                <label className="p-1 text-center align-middle texto">
                   {lecAnt3}
                 </label>
               </div>
@@ -525,22 +537,23 @@ function ElitexPage() {
                 />
               </div>
               <div className="w-2/12">
-                <label className="text-center p-1 texto">{rend3}</label>
+                <label className="p-1 text-center texto">{rend3}</label>
               </div>
-              <div className="w-1/12">
+              <div className="w-2/12">
                 <input
                   type="text"
                   className="input entrada"
                   value={ini3}
+                  maxLength="1"
                   onChange={(e) => setIni3(e.target.value)}
                 />
               </div>
             </div>
           </div>
-          <button className="btn btn-primary mt-2 w-full" type="submit">
+          <button className="w-full mt-1 btn btn-primary" type="submit">
             Grabar
           </button>
-          {<p className="mt-2 text-error font-bold">{error}</p>}
+          {<p className="mt-2 font-bold text-error">{error}</p>}
         </form>
       </div>
     </div>

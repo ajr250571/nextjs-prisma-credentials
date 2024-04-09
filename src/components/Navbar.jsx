@@ -9,17 +9,14 @@ async function Navbar() {
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
-        <Link href="/" className="btn btn-ghost text-xl">
+        <Link href="/" className="text-xl btn btn-ghost">
           PANPACK SA
         </Link>
       </div>
       <div className="flex-none">
-        <ul className="menu menu-horizontal px-1">
+        <ul className="px-1 menu menu-horizontal">
           {!session?.user ? (
             <>
-              <li>
-                <Link href="/">Home</Link>
-              </li>
               <li>
                 <Link href="/auth/login">Conectar</Link>
               </li>
